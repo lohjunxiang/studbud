@@ -79,6 +79,11 @@ body {
   font-family: inherit;
 }
 
+.timer h1 {
+  font-size: 12vh;
+
+}
+
 .timerContainer {
   display: flex;
   flex-direction: column;
