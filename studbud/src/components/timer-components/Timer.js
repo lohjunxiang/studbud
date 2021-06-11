@@ -14,7 +14,7 @@ const Timer = ({ focusTime, breakTime, session, sessionPassed, setSessionPassed,
     console.log(focusTime);
     const [time, setTime] = useState(focusTime * 10)
     const [isFocusTime, setIsFocusTime] = useState(true)
-    const secsInMins = 5;
+    const secsInMins = 60;
 
 
     useEffect(() => {

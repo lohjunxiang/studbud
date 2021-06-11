@@ -7,7 +7,7 @@ import MusicPlayer from './components/MusicPlayer'
 import Kanban from './components/kanban/Kanban'
 import AddTaskPopout from './components/todo-components/AddTaskPopout'
 import AddBoardPopout from './components/todo-components/AddBoardPopout'
-import ReferenceList from './components/ReferenceList'
+import Dictionary from './components/Dictionary'
 
 const dummyLists = [
   {
@@ -16,80 +16,10 @@ const dummyLists = [
       name: 'Taskboard'
     },
     tasks: [
-      {
-        id: 'a',
-        taskTitle: 'Web App',
-        taskName: 'Persona',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: false,
-      },
-      {
-        id: 'b',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-      {
-        id: 'C',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-      {
-        id: 'D',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
+      
     ],
   },
-  {
-    metadata: {
-      id: 'list-b',
-      name: 'UX'
-    },
-    tasks: [
-      {
-        id: 'e',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-      {
-        id: 'f',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-      {
-        id: 'g',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-      {
-        id: 'h',
-        taskTitle: 'Web App',
-        taskName: 'Secondary Research',
-        dueDate: '30 April 2021',
-        priority: 'High',
-        completion: true,
-      },
-    ],
-  },
+  
 ];
 
 const move = (source, destination, droppableSource, droppableDestination) => {
@@ -211,7 +141,7 @@ function App() {
       case 4:
         return (
           <div className='app'>
-            <ReferenceList />
+            <Dictionary />
           </div>
         )
     }

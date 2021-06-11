@@ -20,11 +20,11 @@ const Pomodoro = props => {
 
 
     return (
-        <div className='container'>
+        <div className='container' >
             <div>
                 <h1 style={{ textAlign: 'center' }} >Pomodoro</h1>
 
-                <div className='pomodoroTabGroup'>
+                <div className='pomodoroTabGroup' >
 
                     {/* Pomodoro Button */}
                     <Button
