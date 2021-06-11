@@ -17,7 +17,6 @@ const DraggableTask = ({ id, index, task, setTask }) => {
               <div
                 style={{
                   // backgroundColor: 'blue',
-                  padding: 2,
                   color: 'white',
                 }}
               >

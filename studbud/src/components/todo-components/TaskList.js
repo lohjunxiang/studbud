@@ -1,39 +1,54 @@
 import Button from '../timer-components/Button'
-import Task from './Task'
+import { Droppable } from 'react-beautiful-dnd';
+import DraggableTask from '../kanban/DraggableTask';
 
-const TaskList = ( {list, setIsAddPopoutVisible, setList, className='' } ) => {
-
-
+const TaskList = ({ list, droppableId, setIsAddPopoutVisible, setList, className = '' }) => {
     const setTaskFactory = (taskId) => (newTask) => {
         console.log(newTask)
-          setList({
+        setList({
             metadata: list.metadata,
             tasks: list.tasks.map(task => {
-              if (task.id !== taskId) {
-                return task;
-              }
-      
-              return newTask;
+                if (task.id !== taskId) {
+                    return task;
+                }
+
+                return newTask;
             })
-          })
-        }
+        })
+    }
 
     return (
-        <div className={`taskListComponent ${className}`} >
-            <div className='taskHeader'>
-                <h1> Task List </h1>
-                <Button onClick={() => setIsAddPopoutVisible(true)} className='btn' color="#005AB7" text={'Add Task'} />
-            </div>
-
-            {list.tasks.map((task) => (
-                
-                <Task 
-                key={task.id} 
-                task={task} 
-                setTask={setTaskFactory(task.id)} />
-            ))}
-
-        </div>
+        <Droppable droppableId={`${droppableId}`}>
+            {(provided) => {
+                return (
+                    <div className={`taskListComponent ${className}`} >
+                        <div className='taskHeader'>
+                            <h1> Task List </h1>
+                            <Button
+                                onClick={() => setIsAddPopoutVisible(true)}
+                                className='btn' color="#005AB7"
+                                text={'Add Task'} />
+                        </div>
+                        <div
+                            style={{ overflowY: 'scroll', overflowX: 'none', height: '70vh', width: '90%' }}
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
+                            {list.tasks.map((task, index) => (
+                                <DraggableTask
+                                    index={index}
+                                    id={task.id}
+                                    key={task.id}
+                                    task={task}
+                                    setTask={setTaskFactory(task.id)}
+                                />
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    </div>
+                );
+            }}
+        </Droppable>
     )
 }
 

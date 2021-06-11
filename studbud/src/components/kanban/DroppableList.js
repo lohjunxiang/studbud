@@ -3,8 +3,6 @@ import { Droppable } from 'react-beautiful-dnd';
 import DraggableTask from './DraggableTask';
 import { FaPlus } from 'react-icons/fa';
 
-
-
 function DroppableList({ droppableId, tasks = [], id, metadata, setList }) {
   // const [taskList, setTaskList] = useState(tasks)
   console.log('droppable:', tasks)
@@ -28,7 +26,7 @@ function DroppableList({ droppableId, tasks = [], id, metadata, setList }) {
     <Droppable droppableId={`${droppableId}`} key={id}>
       {(provided) => {
         return (
-          <div style={{ width: "27%" }}>
+          <div style={{ width: "30%", minWidth: "30%" }}>
 
             <div className='kanbanBoardHeader'>
               <h1>{metadata.name}</h1>
@@ -36,7 +34,7 @@ function DroppableList({ droppableId, tasks = [], id, metadata, setList }) {
             </div>
 
             <div
-              style={{ overflowY: 'scroll', maxHeight: '70vh' }}
+              style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '70vh', minHeight:'50vh'}}
               {...provided.droppableProps}
               ref={provided.innerRef}
             >

@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
+import { DragDropContext } from 'react-beautiful-dnd'
 import Pomodoro from './components/timer-components/pomodoro'
 import Tasks from './components/todo-components/Tasks'
 import Footer from './components/FooterNav/Footer'
 import MusicPlayer from './components/MusicPlayer'
 import Kanban from './components/kanban/Kanban'
 import AddTaskPopout from './components/todo-components/AddTaskPopout'
-import TaskList from './components/todo-components/TaskList'
+import AddBoardPopout from './components/todo-components/AddBoardPopout'
+import ReferenceList from './components/ReferenceList'
 
 const dummyLists = [
   {
     metadata: {
       id: 'Task List flex',
-      name: 'UI'
+      name: 'Taskboard'
     },
     tasks: [
       {
@@ -114,9 +116,11 @@ const reorder = (list, startIndex, endIndex) => {
 
 
 function App() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(4);
   const [isAddPopoutVisible, setIsAddPopoutVisible] = useState(false)
+  const [isAddBoardPopoutVisible, setIsAddBoardPopoutVisible] = useState(false)
   const [lists, setLists] = useState(dummyLists);
+
   function onDragEnd(result) {
     const { source, destination } = result;
 
@@ -147,29 +151,6 @@ function App() {
     }
   }
 
-
-  // const [tasks, setTasks] = useState([
-  //   {
-  //     id: 1,
-  //     taskTitle: 'Web App',
-  //     taskName: 'Secondary Research',
-  //     dueDate: '30 April 2021',
-  //     priority: 'High',
-  //     completion: true,
-  //   },
-
-  //   {
-  //     id: 2,
-  //     taskTitle: 'Web App',
-  //     taskName: 'Personas',
-  //     dueDate: '30 April 2021',
-  //     priority: 'Medium',
-  //     completion: false,
-
-  //   }
-
-  // ])
-
   const setListFactory = (listId) => (newList) => {
     console.log(newList)
     setLists(lists.map(taskList => {
@@ -181,15 +162,29 @@ function App() {
     }))
   }
 
+  function addTask(listId, newTask) {
+    const updatedList = lists.filter(list => list.metadata.id === listId)[0];
+    updatedList.tasks.push(newTask)
+    setLists(lists.map(list => list.metadata.id !== listId ? list : updatedList))
+  }
+
+  function addBoard(newBoard) {
+    const updatedLists = lists.concat(newBoard);
+    setLists(updatedLists)
+  }
+
+
   const render = () => {
     switch (page) {
       case 1:
         return (
           <>
-            <Tasks
-              setList={setListFactory(lists.filter(list => list.metadata.id === 'Task List flex')[0].metadata.id)}
-              list={lists.filter(list => list.metadata.id === 'Task List flex')[0]}
-              setIsAddPopoutVisible={setIsAddPopoutVisible} />
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Tasks
+                setList={setListFactory('Task List flex')}
+                list={lists[0]}
+                setIsAddPopoutVisible={setIsAddPopoutVisible} />
+            </DragDropContext>
             <Pomodoro />
           </>
         )
@@ -197,33 +192,26 @@ function App() {
         return (
           <div className='kanbanPageContainer'>
             <Kanban
-              lists={lists.filter(list => list.metadata.id !== 'Task List flex')}
+              lists={lists}
               setLists={setLists}
               onDragEnd={onDragEnd}
+              setIsAddPopoutVisible={setIsAddPopoutVisible}
+              setIsAddBoardPopoutVisible={setIsAddBoardPopoutVisible}
+
             />
-            <div>
-              <TaskList
-
-                setList={setListFactory(lists.filter(list => list.metadata.id === 'Task List flex')[0].metadata.id)}
-                list={lists.filter(list => list.metadata.id === 'Task List flex')[0]}
-                setIsAddPopoutVisible={setIsAddPopoutVisible} />
-
-              <div className='fullSizeSemiCircle' style={{
-                backgroundColor: '#4C0625',
-                position: 'absolute',
-                top: '0',
-                zIndex: 1,
-
-              }}></div>
-
-            </div>
-
           </div>
         )
       case 3:
         return (
           <div className='app'>
             <MusicPlayer />
+          </div>
+        )
+
+      case 4:
+        return (
+          <div className='app'>
+            <ReferenceList />
           </div>
         )
     }
@@ -234,8 +222,10 @@ function App() {
       {render()}
 
       <Footer page={page} setPage={setPage} />
-      {isAddPopoutVisible && <AddTaskPopout setIsAddPopoutVisible={setIsAddPopoutVisible} />}
-
+      {isAddPopoutVisible && (
+        <AddTaskPopout setIsAddPopoutVisible={setIsAddPopoutVisible} addTask={addTask} boards={lists.map(list => list.metadata)} />
+      )}
+      {isAddBoardPopoutVisible && <AddBoardPopout setIsAddBoardPopoutVisible={setIsAddBoardPopoutVisible} addBoard={addBoard} />}
     </div>
   );
 }

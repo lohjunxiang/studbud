@@ -3,6 +3,17 @@ import { useState, useEffect } from 'react'
 
 const Task = ({ task, setTask }) => {
 
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+        setShow(true);
+    }, []);
+
+    const onClick = () => {
+        setShow(!show);
+    };
+
+
+
     const handleClick = (isCompleted) => {
         setTask({
             ...task,
@@ -12,11 +23,9 @@ const Task = ({ task, setTask }) => {
 
     return (
 
-
         <div className='task' >
-
             <div className="checkboxContainer" onClick={() => handleClick(!task.completion)}>
-                <input className='checkbox' type="checkbox" checked={task.completion} onChange={() => null}/>
+                <input className='checkbox' type="checkbox" checked={task.completion} onChange={() => null} />
                 <span className="checkmark"></span>
             </div>
 
