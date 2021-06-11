@@ -2,23 +2,19 @@ import PropTypes from 'prop-types'
 
 
 
-const Button = ({ font, color, text, className, ...props}) => {
+const Button = ({ font, color='white', text, className='', start, ...props}) => {
 
     return (
         <button 
-            style={ { backgroundColor: color, color: font} } 
+            style={ { backgroundColor: color, color: font,} } 
             className={`btn ${className}`}
             {...props}
+            disabled={start}
         >
             { text }
         </button>
 
     )
-}
-
-Button.defaultProps = {
-    color: 'white',
-    backgroundColor: '#005AB7',
 }
 
 Button.propTypes = {

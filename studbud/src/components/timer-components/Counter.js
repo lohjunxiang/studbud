@@ -1,8 +1,6 @@
-import { useState, useCount } from 'react'
 
-
-const Counter = ( {defaultTime, name, count, setCount} ) => {
-
+const Counter = ( {start, name, count, setCount, text, } ) => {
+    
 
     function decrementCount() {
         if (count >= 1)  setCount(count - 1);
@@ -19,9 +17,9 @@ const Counter = ( {defaultTime, name, count, setCount} ) => {
             <h1> {name} </h1>
 
             <div className='timerGroup'>
-                <button className='incrementBtn' onClick={incrementCount} >+</button>
-                <h3> {count} mins </h3>
-                <button className='incrementBtn' onClick={decrementCount} >-</button>
+                <button className='incrementBtn' onClick={incrementCount} disabled={start} >+</button>
+                <h3> {text} </h3>
+                <button className='incrementBtn' onClick={decrementCount} disabled={start} >-</button>
             </div>
         </div>
     )
