@@ -1,32 +1,66 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
+import Button from './timer-components/Button';
 
-const app_id = 'a35bc855'
-const app_key = 'b5ffdb2b023a040b8ce50ff80e4b0471'
-const dictionaryApiUrl = 'https://od-api.oxforddictionaries.com/api/v2/en-gb/apple'
+const dictionaryApiUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_GB/'
 
 const Dictionary = () => {
+    const [searchWord, setSearchWord] = useState('');
+    const [definition, setDefinition] = useState('');
+    const [example, setExample] = useState('');
+
     const getDefinition = async () => {
-        const res = await axios.get(dictionaryApiUrl, {
-            headers: {
-                app_id,
-                app_key
-            }
-        })
-        console.log(res.data)
+        try {
+            const res = await axios.get(dictionaryApiUrl + searchWord)
+            console.log(res.data)
+            setDefinition(res.data[0].meanings[0].definitions[0].definition)
+            setExample(res.data[0].meanings[0].definitions[0].example)
+        } catch (err) {
+            setDefinition('This word does not exist')
+            setExample('')
+        }
+
+
     }
 
-    getDefinition();
-
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
 
-            <div className='fullSizeSemiCircle' style={{ backgroundColor: '#4C0625', position: 'relative'}}>
+            <div className='fullSizeSemiCircle' style={{ backgroundColor: '#4C0625', position: 'relative' }}>
 
-            <div className='arrow-up'></div>
+                <div className='arrow-up'></div>
             </div>
-            <div className='container' style={{backgroundColor: '#FFD600'}}></div>``
+            <div className='container' style={{ 
+                backgroundColor: '#FFD600', 
+                justifyContent: 'flex-start', 
+                paddingTop: '70px'
+                }}>
+                    <div className='taskHeader' style={{width:'300px', margin:'0 0 15px 0'}}>
+                    <h1> DICTIONARY </h1>
+                </div>
 
+                {/* <h1 style={{ textAlign: 'center', color: '#2a2a2a' }} >Dictionary</h1> */}
+                <div>
+                    <input
+                        value={searchWord}
+                        onChange={(e) => setSearchWord(e.target.value)}
+                        style={{ width: '200px', padding: '0 30px ' }}
+                    ></input>
+
+                    <Button text="Search" color="#005AB7" onClick={() => getDefinition()}></Button>
+                </div>
+
+                <div className='searchResults'>
+
+                    <div style={{margin: '0 0 10px 0'}} >
+                    <h3>Definition:</h3>
+                    {definition}
+                    </div>
+                    <br />
+                    <h3>Example:</h3>
+                    {example}
+                </div>
+            </div>
 
 
 

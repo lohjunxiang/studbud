@@ -46,7 +46,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 
 function App() {
-  const [page, setPage] = useState(4);
+  const [page, setPage] = useState(1);
   const [isAddPopoutVisible, setIsAddPopoutVisible] = useState(false)
   const [isAddBoardPopoutVisible, setIsAddBoardPopoutVisible] = useState(false)
   const [lists, setLists] = useState(dummyLists);
@@ -133,16 +133,16 @@ function App() {
         )
       case 3:
         return (
-          <div className='app'>
+          
             <MusicPlayer />
-          </div>
+          
         )
 
       case 4:
         return (
-          <div className='app'>
+          
             <Dictionary />
-          </div>
+          
         )
     }
   }

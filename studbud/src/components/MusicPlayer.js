@@ -10,11 +10,11 @@ const MusicPlayer = () => {
             </div>
 
             <div className='musicPlayerMiddleCircle'>
-                <div className='taskHeader'>
+                <div className='taskHeader' style={{width:'300px'}}>
                     <h1> MUSIC PLAYER </h1>
                 </div>
 
-                <div className='musicPlay'>
+                <div className='musicPlayer'>
                     <iframe src="https://open.spotify.com/embed/playlist/7rZ6LxPByZUuMhljsrtM8z" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
             </div>

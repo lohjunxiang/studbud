@@ -22,7 +22,10 @@ const Pomodoro = props => {
     return (
         <div className='container' >
             <div>
-                <h1 style={{ textAlign: 'center' }} >Pomodoro</h1>
+            <div className='taskHeader' style={{width:'300px', color:'white' , borderColor:'white', margin:'0 0 15px 0'}}>
+                    <h1> POMODORO </h1>
+                </div>
+                {/* <h1 style={{ textAlign: 'center' }} >Pomodoro</h1> */}
 
                 <div className='pomodoroTabGroup' >
 

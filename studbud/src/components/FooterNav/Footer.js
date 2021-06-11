@@ -16,7 +16,8 @@ const Footer = ({page, setPage}) => {
             
         <div className='footerNav'>
 
-            <div onClick={ () => setPage((page+3)%4)} className='pageChangeBtn'>
+            <div onClick={ () => setPage(((page+2)%4)+1)} className='pageChangeBtn'>
+
                 <h1> {pageNames[(page+2)%4]} </h1>
                 <FaCaretLeft fontSize={50} />
             </div>
@@ -28,7 +29,7 @@ const Footer = ({page, setPage}) => {
                 {/* <h1>4 circle buttons</h1> */}
             </div>
 
-            <div onClick={ () => setPage((page+1)%4)} className='pageChangeBtn'>
+            <div onClick={ () => setPage((page%4)+1)} className='pageChangeBtn'>
 
                 <FaCaretRight fontSize={50}/>
                 <h1>{pageNames[(page)%4]} </h1>
